@@ -7,6 +7,8 @@ This is the standard structure for all BIDS IEM data. All maps will at
 minimum contain information about the following.
 """
 
+from .db import db
+
 def Base(db.Model):
 
     __abstract__ = True
@@ -17,6 +19,14 @@ def Base(db.Model):
     created_at = db.Column(ArrowType, default=arrow.now('US/Pacific'))
     created_by = db.Column(db.Integer)
     is_active = db.Column(db.Boolean, default=True)
+
+    def save(self):
+        """save this object"""
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except:
+            db.session.rollback()
 
 
 def Graph(Base):
