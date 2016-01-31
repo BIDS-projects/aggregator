@@ -4,6 +4,12 @@ Accepts information from several configurations:
 
 - LDA
 
+## Installation
+
+```
+pip install git+https://github.com/BIDS-projects/aggregator.git
+```
+
 ## How to Use
 
 ```
