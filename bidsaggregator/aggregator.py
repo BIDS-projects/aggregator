@@ -1,6 +1,6 @@
 import argparse
 import textwrap
-import modules
+import modules.lda
 
 modules = {
     'lda': modules.lda.LDAModule
@@ -34,6 +34,6 @@ parser.add_argument(
 	help='relative path to csv')
 
 if __name__ == '__main__':
-    args = parse.parse_args()
-    Module = modules[analysis]
-    Module().parse(args)
+    args = parser.parse_args()
+    Module = modules[args.analysis]
+    Module().run(args)

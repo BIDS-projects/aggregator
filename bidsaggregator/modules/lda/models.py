@@ -1,18 +1,38 @@
 from utils.models import Vertex as V, Base
-import sqlalchemy as sa
+from sqlalchemy import *
 
 
-def Vertex(V):
+class Vertex(V):
     """lda vertex abstract"""
 
     __tablename__ = 'vertex'
 
-    topics = sa.relatioship('Topic', backref='vertex')
+
+class TopicVertex(Base):
+
+    __table__ = 'topic_vertex'
+
+    topic_id = Column(Integer, ForeignKey('topic.id'))
+    vertex_id = Column(Integer, ForeignKey('vertex.id'))
 
 
-def Topic(Base):
+class Keyword(Base):
+
+    __tablename__ = 'keyword'
+
+    name = Column(String(50), unique=True)
+
+
+class KeywordTopic(Base):
+
+    __table__ = 'keyword_topic'
+
+    topic_id = Column(Integer, ForeignKey('topic.id'))
+    keyword_id = Column(Integer, ForeignKey('keyword.id'))
+
+
+class Topic(Base):
 
     __tablename__ = 'topic'
 
-    parent_id = sa.Column(sa.Integer, sa.PrivateKey('topic.id'))
-    vertex_id = sa.Column(sa.Integer, sa.ForeignKey('vertex.id'))
+    name = Column(String(50), unique=True)

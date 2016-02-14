@@ -7,56 +7,73 @@ This is the standard structure for all BIDS IEM data. All maps will at
 minimum contain information about the following.
 """
 
-class MySQLBase(sad.declarative_base(), object):
+import sqlalchemy.ext.declarative as sad
+from sqlalchemy.orm import relationship
+from sqlalchemy import *
+from sqlalchemy_utils import ArrowType
+import arrow
+
+
+class Base(sad.declarative_base(), object):
     """MySQL base object"""
 
     __abstract__ = True
     db = None
 
-    id = sa.Column(sa.Integer, primary_key=True)
-    updated_at = sa.Column(ArrowType)
-    updated_by = sa.Column(sa.Integer)
-    created_at = sa.Column(ArrowType, default=arrow.now('US/Pacific'))
-    created_by = sa.Column(sa.Integer)
-    is_active = sa.Column(sa.Boolean, default=True)
+    id = Column(Integer, primary_key=True)
+    updated_at = Column(ArrowType)
+    updated_by = Column(Integer)
+    created_at = Column(ArrowType, default=arrow.now('US/Pacific'))
+    created_by = Column(Integer)
+    is_active = Column(Boolean, default=True)
+
+    @classmethod
+    def get_or_create(cls, **data):
+        """Get or create the object"""
+        return cls.query().filter_by(**data).one_or_none() or cls(**data)
 
     @classmethod
     def __query(cls):
         """Returns query object"""
-        return cls.sa.session.query(cls)
+        return cls.session.query(cls)
+
+    def add(self):
+        """save object to database"""
+        self.session.add(self)
+        return self
 
     def save(self):
         """save object to database"""
-        self.sa.session.add(self)
-        self.sa.session.commit()
+        self.session.add(self)
+        self.session.commit()
         return self
 
 
-def Graph(Base):
+class Graph(Base):
     """abstract for a graph"""
 
     __tablename__ = 'graph'
 
-    vertices = sa.relationship('Vertex', backref='graph')
-    edges = sa.relationship('Edge', backref='graph')
+    vertices = relationship('Vertex', backref='graph')
+    edges = relationship('Edge', backref='graph')
 
 
-def Vertex(Base):
+class Vertex(Base):
     """abstract for a graph vertex"""
 
     __abstract__ = True
 
-    key = sa.Column(sa.String(50), unique=True)
-    value = sa.Column(sa.Text)
-    graph_id = sa.Column(sa.Integer, sa.ForeignKey('graph.id'))
+    name = Column(String(50), unique=True)
+    value = Column(Text)
+    graph_id = Column(Integer, ForeignKey('graph.id'))
 
 
-def Edge(Base):
+class Edge(Base):
     """abstract for a graph edge"""
 
     __abstract__ = True
 
-    value = sa.Column(sa.String)
-    graph_id = sa.Column(sa.Integer, sa.ForeignKey('graph.id'))
-    from_id = sa.Column(sa.Integer, sa.ForeignKey('vertex.id'))
-    to_id = sa.Column(sa.Integer, sa.ForeignKey('vertex.id'))
+    value = Column(String)
+    graph_id = Column(Integer, ForeignKey('graph.id'))
+    from_id = Column(Integer, ForeignKey('vertex.id'))
+    to_id = Column(Integer, ForeignKey('vertex.id'))

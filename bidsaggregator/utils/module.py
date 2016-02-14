@@ -17,7 +17,21 @@ class Module(object):
         self.vertices = []
         self.edges = []
 
-    def parse(self, args):
+    def run(self, args):
+        """General run procedure"""
+        data = self.load(args)
+        self.parse(self.preprocess(data))
+        return self.save()
+
+    def load(self, args):
+        """Load data required to begin processing"""
+        raise NotImplementedError()
+
+    def preprocess(self, data):
+        """Preprocess input and feed into parse"""
+        return data
+
+    def parse(self, data):
         """Parse input and feed into Graph abstraction outputs"""
         raise NotImplementedError()
 
