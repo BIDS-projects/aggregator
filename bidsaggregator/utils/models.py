@@ -30,26 +30,27 @@ class Base(sad.declarative_base(), object):
     @classmethod
     def get_or_create(cls, **data):
         """Get or create the object"""
-        return cls.query().filter_by(**data).one_or_none() or cls(**data)
+        return cls.query().filter_by(**data).one_or_none() or cls(**data).save()
 
     @classmethod
-    def __query(cls):
+    def query(cls):
         """Returns query object"""
-        return cls.session.query(cls)
+        return cls.db.session.query(cls)
 
     def add(self):
         """save object to database"""
-        self.session.add(self)
+        self.db.session.add(self)
         return self
 
     def save(self):
         """save object to database"""
-        self.session.add(self)
-        self.session.commit()
+        self.db.session.add(self)
+        self.db.session.commit()
         return self
 
 
-declaredWrap = lambda f: sad.declared_attr(lambda _: f)
+ForeignColumn = lambda *args, **kwargs: sad.declared_attr(
+    lambda _: Column(*args, **kwargs))
 
 
 ##########
@@ -74,7 +75,7 @@ class Vertex(Base):
 
     name = Column(String(50), unique=True)
     value = Column(Text)
-    graph_id = declaredWrap(Column(Integer, ForeignKey('graph.id')))
+    graph_id = ForeignColumn(Integer, ForeignKey('graph.id'))
 
 
 class Edge(Base):
@@ -82,8 +83,8 @@ class Edge(Base):
 
     __abstract__ = True
 
-    value = Column(String)
+    value = Column(String(50))
 
-    graph_id = declaredWrap(Column(Integer, ForeignKey('graph.id')))
-    from_id = declaredWrap(Column(Integer, ForeignKey('vertex.id')))
-    to_id = declaredWrap(Column(Integer, ForeignKey('vertex.id')))
+    graph_id = ForeignColumn(Integer, ForeignKey('graph.id'))
+    from_id = ForeignColumn(Integer, ForeignKey('vertex.id'))
+    to_id = ForeignColumn(Integer, ForeignKey('vertex.id'))

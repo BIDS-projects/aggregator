@@ -1,6 +1,8 @@
 import argparse
 import textwrap
 import modules.lda
+from utils.db import MySQL
+from utils.config import MySQLConfig
 
 modules = {
     'lda': modules.lda.LDAModule
@@ -34,6 +36,7 @@ parser.add_argument(
 	help='relative path to csv')
 
 if __name__ == '__main__':
+    mysql = MySQL(config=MySQLConfig)
     args = parser.parse_args()
     Module = modules[args.analysis]
     Module().run(args)

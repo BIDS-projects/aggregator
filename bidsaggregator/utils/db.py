@@ -19,7 +19,7 @@ class MySQL(object):
         self.session = sao.scoped_session(sao.sessionmaker(bind=self.engine))
 
         # set db to self
-        MySQLBase.db = self
+        Base.db = self
 
         # extra MySQL initialization
-        MySQLBase.metadata.create_all(bind=self.engine)
+        Base.metadata.create_all(bind=self.engine)
