@@ -26,7 +26,7 @@ python aggregator.py [analysis]
 To process a CSV generated from LDA, run the following:
 
 ```
-python aggregator.py lda --csv=[institution].csv
+python aggregator.py lda --csv=path/to/[institution].csv
 ```
 
 The `[institution]` portion is the name of the institution, as stored in the
