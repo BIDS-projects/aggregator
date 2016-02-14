@@ -3,6 +3,10 @@ Aggregates processed data in any form, converts all into Graph abstracts.
 
 # Installation
 
+If you intend on using the aggregator's CLI, clone the repository.
+
+If you intend on using this package programmatically:
+
 ```
 pip install git+https://github.com/BIDS-projects/aggregator.git
 ```
