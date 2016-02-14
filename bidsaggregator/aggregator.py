@@ -1,9 +1,10 @@
 import argparse
 import textwrap
+import modules
 
-ALLOWED_MODULES = (
-    'lda'
-)
+modules = {
+    'lda': modules.lda.LDAModule
+}
 
 #######################
 # COMMAND-LINE PARSER #
@@ -22,17 +23,17 @@ in MySQL.
 
 parser.add_argument(
 	type=str,
-    choices=ALLOWED_MODULES,
+    choices=modules.keys(),
 	help='Module to load. One of the following: %s'
-        % ','.join(ALLOWED_MODULES),
+        % ','.join(modules.keys()),
     dest='analysis')
 
 parser.add_argument(
-	'-p',
-	'--path',
+	'--csv',
 	type=str,
-	help='relative path to required file')
+	help='relative path to csv')
 
 if __name__ == '__main__':
-    import modules
-    pass
+    args = parse.parse_args()
+    Module = modules[analysis]
+    Module().parse(args)

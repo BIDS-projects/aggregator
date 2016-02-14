@@ -2,7 +2,7 @@
 Default module
 """
 
-from utils.models import Graph, Vertex, Edge
+from utils.models import Graph
 
 class Module(object):
     """base module object - defines contract for all modules"""
@@ -17,7 +17,7 @@ class Module(object):
         self.vertices = []
         self.edges = []
 
-    def parse(self, input):
+    def parse(self, args):
         """Parse input and feed into Graph abstraction outputs"""
         raise NotImplementedError()
 

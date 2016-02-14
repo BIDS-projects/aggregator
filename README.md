@@ -13,4 +13,13 @@ pip install git+https://github.com/BIDS-projects/aggregator.git
 python aggregator.py [analysis]
 ```
 
-- `lda`: `python aggregator.py lda --path=path/to/file.csv`
+## LDA
+
+To process a CSV generated from LDA, run the following:
+
+```
+python aggregator.py lda --csv=[institution].csv
+```
+
+The `[institution]` portion is the name of the institution, as stored in the
+database. Use `_` instead of spaces.

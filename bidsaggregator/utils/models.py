@@ -44,16 +44,17 @@ def Graph(Base):
 def Vertex(Base):
     """abstract for a graph vertex"""
 
-    __tablename__ = 'vertex'
+    __abstract__ = True
 
-    value = sa.Column(sa.String)
+    key = sa.Column(sa.String(50), unique=True)
+    value = sa.Column(sa.Text)
     graph_id = sa.Column(sa.Integer, sa.ForeignKey('graph.id'))
 
 
 def Edge(Base):
     """abstract for a graph edge"""
 
-    __tablename__ = 'edge'
+    __abstract__ = True
 
     value = sa.Column(sa.String)
     graph_id = sa.Column(sa.Integer, sa.ForeignKey('graph.id'))
