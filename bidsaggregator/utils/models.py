@@ -49,11 +49,20 @@ class Base(sad.declarative_base(), object):
         return self
 
 
+declaredWrap = lambda f: sad.declared_attr(lambda _: f)
+
+
+##########
+# MODELS #
+##########
+
+
 class Graph(Base):
     """abstract for a graph"""
 
     __tablename__ = 'graph'
 
+    directed = Column(Boolean)
     vertices = relationship('Vertex', backref='graph')
     edges = relationship('Edge', backref='graph')
 
@@ -65,7 +74,7 @@ class Vertex(Base):
 
     name = Column(String(50), unique=True)
     value = Column(Text)
-    graph_id = Column(Integer, ForeignKey('graph.id'))
+    graph_id = declaredWrap(Column(Integer, ForeignKey('graph.id')))
 
 
 class Edge(Base):
@@ -74,6 +83,7 @@ class Edge(Base):
     __abstract__ = True
 
     value = Column(String)
-    graph_id = Column(Integer, ForeignKey('graph.id'))
-    from_id = Column(Integer, ForeignKey('vertex.id'))
-    to_id = Column(Integer, ForeignKey('vertex.id'))
+
+    graph_id = declaredWrap(Column(Integer, ForeignKey('graph.id')))
+    from_id = declaredWrap(Column(Integer, ForeignKey('vertex.id')))
+    to_id = declaredWrap(Column(Integer, ForeignKey('vertex.id')))

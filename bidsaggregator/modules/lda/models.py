@@ -1,6 +1,12 @@
-from utils.models import Vertex as V, Base
+from utils.models import Vertex as V, Edge as E, Base, declaredWrap
 from sqlalchemy import *
 
+
+class Edge(E):
+    """lda edge abstract"""
+
+    __tablename__ = 'edge'
+    
 
 class Vertex(V):
     """lda vertex abstract"""
@@ -10,10 +16,10 @@ class Vertex(V):
 
 class TopicVertex(Base):
 
-    __table__ = 'topic_vertex'
+    __tablename__ = 'topic_vertex'
 
-    topic_id = Column(Integer, ForeignKey('topic.id'))
-    vertex_id = Column(Integer, ForeignKey('vertex.id'))
+    topic_id = declaredWrap(Column(Integer, ForeignKey('topic.id')))
+    vertex_id = declaredWrap(Column(Integer, ForeignKey('vertex.id')))
 
 
 class Keyword(Base):
@@ -25,10 +31,9 @@ class Keyword(Base):
 
 class KeywordTopic(Base):
 
-    __table__ = 'keyword_topic'
-
-    topic_id = Column(Integer, ForeignKey('topic.id'))
-    keyword_id = Column(Integer, ForeignKey('keyword.id'))
+    __tablename__ = 'keyword_topic'
+    topic_id = declaredWrap(Column(Integer, ForeignKey('topic.id')))
+    keyword_id = declaredWrap(Column(Integer, ForeignKey('keyword.id')))
 
 
 class Topic(Base):
