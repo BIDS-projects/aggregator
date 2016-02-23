@@ -13,6 +13,9 @@ class Vertex(V):
 
     __tablename__ = 'vertex'
 
+    url = Column(Text)
+    
+
 
 class TopicVertex(Base):
 

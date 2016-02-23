@@ -1,5 +1,5 @@
 """
-Module converting LDA CSV output
+Compute weights for each link between websites
 """
 from utils.module import Module
 from .models import Topic, Vertex, Keyword, KeywordTopic, TopicVertex
