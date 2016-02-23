@@ -7,14 +7,15 @@ class Edge(E):
 
     __tablename__ = 'edge'
 
+    weight = Column(Integer)
+
 
 class Vertex(V):
     """lda vertex abstract"""
 
     __tablename__ = 'vertex'
 
-    url = Column(Text)
-    
+    domain = Column(Text)
 
 
 class TopicVertex(Base):
