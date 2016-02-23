@@ -3,19 +3,36 @@ Aggregates processed data in any form, converts all into Graph abstracts.
 
 # Installation
 
-If you intend on using the aggregator's CLI, clone the repository.
+Clone the repository.
 
 ```
-git clone git@github.com:BIDS-projects/aggregator.git
+git clone git@github.com:BIDS-projects/aggregator
 ```
 
-If you intend on using this package programmatically, install via `pip` directly via Github.
+Setup your virtual environment. The following will create a new environment called `aggregator`.
 
 ```
-pip install git+https://github.com/BIDS-projects/aggregator.git
+conda create -n aggregator python=3.4
 ```
+
+Activate your virtual environment, and install all dependencies from `requirements.txt`.
+
+```
+source activate aggregator
+pip install -r requirements.txt
+```
+
+Installation complete. See "How to Use" to get started.
 
 # How to Use
+
+Make sure to activate your virtual environment, if you haven't already. (If you are in the environment, your prompt will be prefixed by `(aggregator)`)
+
+```
+source activate aggregator
+```
+
+To run an aggregation module, use the following, where `analysis` is the name of your analysis. See below for types of analysis output that this aggregator can accept.
 
 ```
 python aggregator.py [analysis]
@@ -34,8 +51,18 @@ database. Use `_` instead of spaces.
 
 ## Link Weighting Algorithm (LWA)
 
-A rather naiive algorithm that reduces a multigraph to a simple graph, by summing the number of edges between meta-nodes, where each node is a domain. This then becomes a new edge weight between two vertices. To process raw scraper output, run the following.
+A rather naiive algorithm that reduces a multigraph to a simple graph, by summing the number of edges between meta-nodes, where each node is a domain. This then becomes a new edge weight between two vertices. To process raw scraper output in MySQL, run the following.
 
 ```
 python aggregator.py lwa
 ```
+
+# Deployment
+
+You must have an account on Mercury, setup through BIDS IEM. SSH onto server.
+
+```
+ssh [username]@mercury.dlab.berkeley.edu
+```
+
+[More instructions coming soon]
