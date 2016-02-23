@@ -7,13 +7,14 @@ from utils.models import Graph
 class Module(object):
     """base module object - defines contract for all modules"""
 
+    graph_name = 'simple'
     graph = None
     vertices = ()
     edges = ()
 
     def __init__(self):
         """setup objects"""
-        self.graph = Graph()
+        self.graph = Graph.get_or_create(name=self.graph_name).save()
         self.vertices = []
         self.edges = []
 

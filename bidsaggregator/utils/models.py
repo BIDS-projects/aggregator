@@ -69,6 +69,7 @@ class Graph(Base):
 
     __tablename__ = 'graph'
 
+    name = Column(Text)
     directed = Column(Boolean)
     vertices = relationship('Vertex', backref='graph')
     edges = relationship('Edge', backref='graph')

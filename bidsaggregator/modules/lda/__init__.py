@@ -2,7 +2,7 @@
 Compute weights for each link between websites
 """
 from utils.module import Module
-from .models import Topic, Vertex, Keyword, KeywordTopic, TopicVertex
+from models import Topic, Vertex, Keyword, KeywordTopic, TopicVertex
 import csv
 
 class LDAModule(Module):

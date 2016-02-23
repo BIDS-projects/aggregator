@@ -24,5 +24,5 @@ class Link(Base):
 
     __tablename__ = 'link'
 
-    from_html = ForeignColumn(Integer, ForeignKey('html.id'))
-    to_html = ForeignColumn(Integer, ForeignKey('html.id'))
+    from_html = ForeignColumn(sa.Integer, sa.ForeignKey('html.id'))
+    to_html = ForeignColumn(sa.Integer, sa.ForeignKey('html.id'))
