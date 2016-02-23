@@ -32,6 +32,12 @@ class Base(sad.declarative_base(), object):
         """Get or create the object"""
         return cls.query().filter_by(**data).one_or_none() or cls(**data).save()
 
+    def update(self, **kwargs):
+        """updates object with kwargs"""
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+        return self
+
     @classmethod
     def query(cls):
         """Returns query object"""

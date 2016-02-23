@@ -30,15 +30,7 @@ class LWAModule(Module):
                 edge = Edge.get_or_create(
                     graph_id=self.graph.id,
                     from_id=u.id,
-                    to_id=v.id)
-                if not edge:
-                    Edge(graph_id=self.graph.id,
-                        from_id=u.id,
-                        to_id=v.id,
-                        weight=weight).save()
-                else:
-                    edge.weight = weight
-                    edge.save()
+                    to_id=v.id).update(weight=weight).save()
 
 
     def save(self):
