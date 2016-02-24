@@ -2,12 +2,14 @@ import argparse
 import textwrap
 import modules.lda
 import modules.lwa
+import modules.pagerank
 from utils.db import MySQL
 from utils.config import MySQLConfig
 
 modules = {
     'lda': modules.lda.LDAModule,
     'lwa': modules.lwa.LWAModule
+    'pagerank': modules.pagerank.PageRankModule
 }
 
 #######################
