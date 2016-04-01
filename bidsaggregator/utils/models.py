@@ -90,8 +90,10 @@ class Edge(Base):
 
     __abstract__ = True
 
-    value = Column(String(50))
+    value = Column(Integer)
 
     graph_id = ForeignColumn(Integer, ForeignKey('graph.id'))
-    from_id = ForeignColumn(Integer, ForeignKey('vertex.id'))
-    to_id = ForeignColumn(Integer, ForeignKey('vertex.id'))
+    from_id = Column(Integer)
+    from_domain = Column(BLOB())
+    to_id = Column(Integer)
+    to_domain = Column(BLOB())
