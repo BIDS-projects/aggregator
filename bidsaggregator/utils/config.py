@@ -8,4 +8,4 @@ class MySQLConfig:
     username = 'root'
     password = 'root'
     host = 'localhost'
-    database = 'dbsamples'
+    database = 'ecosystem_mapping'
