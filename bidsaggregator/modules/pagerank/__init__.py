@@ -28,7 +28,7 @@ class PageRankModule(Module):
 
         engine = create_engine('mysql+pymysql://user:password@localhost/ecosystem_mapping')
         conn = engine.connect()
-        s = select([ToItem.id, 
+        s = select([ToItem.id,
             ToItem.from_id, 
             ToItem.base_url, 
             FromItem.base_url, 

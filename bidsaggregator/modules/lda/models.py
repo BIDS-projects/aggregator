@@ -1,4 +1,4 @@
-from utils.models import Vertex as V, Edge as E, Base, ForeignColumn
+from utils.models import Vertex as V, Edge as E, Researchers as R, Base, ForeignColumn
 from sqlalchemy import *
 
 
@@ -12,6 +12,11 @@ class Vertex(V):
     """lda vertex abstract"""
 
     __tablename__ = 'vertex'
+
+class Researchers(R):
+    """lda researcher abstract"""
+
+    __tablename__ = 'researchers'
 
 
 class TopicVertex(Base):

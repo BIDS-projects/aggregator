@@ -90,3 +90,14 @@ class Edge(Base):
     from_domain = Column(BLOB())
     to_id = Column(Integer)
     to_domain = Column(BLOB())
+
+class Researchers(Base):
+    """abstract for researchers"""
+
+    __abstract__ = True
+
+    _id = Column(Integer)
+    name = Column(BLOB())
+    link_id = Column(Integer)
+    domain = Column(String(100))
+    graph_id = ForeignColumn(Integer, ForeignKey('graph.id'))

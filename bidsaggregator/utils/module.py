@@ -16,6 +16,7 @@ class Module(object):
         self.graph = Graph()
         self.vertices = []
         self.edges = []
+        self.researchers = []
 
     def run(self, args):
         """General run procedure"""
